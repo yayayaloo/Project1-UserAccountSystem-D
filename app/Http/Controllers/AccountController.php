@@ -27,9 +27,15 @@ class AccountController extends Controller
             return back()->withErrors(['password' => 'Password is incorrect.']);
         }
 
-        Auth::logout();
         $user->delete();
 
-        return redirect('/')->with('success', 'Account deleted successfully.');
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()
+            ->route('login')
+            ->with('success', 'Account deleted successfully.');
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -15,10 +14,16 @@ class LoginController extends Controller
 
     public function login(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validate([
-            'login' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $request->validate(
+            [
+                'login' => 'required|string',
+                'password' => 'required|string',
+            ],
+            [
+                'login.required' => 'Please enter your email address or username.',
+                'password.required' => 'Please enter your password.',
+            ]
+        );
 
         $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
@@ -29,12 +34,15 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+
+            return redirect()->intended(route('dashboard'));
         }
 
-        return back()->withErrors([
-            'login' => 'The provided credentials do not match our records.',
-        ]);
+        return back()
+            ->withErrors([
+                'login' => 'These credentials do not match our records. Check your email or username and password, then try again.',
+            ])
+            ->onlyInput('login');
     }
 
     public function logout(Request $request): \Illuminate\Http\RedirectResponse
