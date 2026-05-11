@@ -39,6 +39,6 @@ class ProfileController extends Controller
             'email' => $request->email,
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Profile updated successfully!');
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
     }
 }

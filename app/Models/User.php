@@ -39,5 +39,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [];
+    /**
+     * Disable the default 'hashed' cast from the parent Authenticatable class.
+     * Password hashing is handled explicitly via Hash::make() in controllers.
+     */
+    protected function casts(): array
+    {
+        return [];
+    }
 }

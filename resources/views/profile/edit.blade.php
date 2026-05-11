@@ -8,6 +8,8 @@
 
 @section('content')
     <x-auth-card title="Edit Profile">
+        <x-flash-success />
+
         <form method="POST" action="{{ route('profile.update') }}">
             @csrf
             @method('PUT')

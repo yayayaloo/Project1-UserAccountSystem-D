@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <span class="navbar-brand mb-0">User Account Management System</span>
+        <a href="{{ route('dashboard') }}" class="navbar-brand mb-0">User Account Management System</a>
         <div class="navbar-nav ms-auto">
             <a href="{{ route('profile.edit') }}" class="nav-link">Edit Profile</a>
             <a href="{{ route('password.change') }}" class="nav-link">Change Password</a>
