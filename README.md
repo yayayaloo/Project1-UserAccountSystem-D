@@ -51,9 +51,11 @@ This is a web application built with Laravel that provides user account manageme
 7. Access the application at http://localhost:8000
 
 ## Group Members
-- Member 1
-- Member 2
-- etc.
+- Vhenz Lobo (Leader)
+- Paul Minimo
+- Carl Babiano
+- Andrei Pascua
+- Stephen Luis Astorga
 
 ## Technologies Used
 - Laravel (PHP Framework)
