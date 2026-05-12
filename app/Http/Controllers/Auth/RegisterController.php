@@ -9,13 +9,16 @@ use App\Models\User;
 
 class RegisterController extends Controller
 {
+    //show registration form view
     public function showRegistrationForm(): \Illuminate\View\View
     {
         return view('auth.register');
     }
 
+    //handle registration request
     public function register(Request $request): \Illuminate\Http\RedirectResponse
     {
+        //validate user input
         $request->validate(
             [
                 'first_name' => 'required|string|max:50',
@@ -31,6 +34,7 @@ class RegisterController extends Controller
                 ],
             ],
             [
+                //custome error messages
                 'first_name.required' => 'First name is required.',
                 'last_name.required' => 'Last name is required.',
                 'email.required' => 'Email address is required.',
@@ -50,6 +54,8 @@ class RegisterController extends Controller
             'last_name' => $request->last_name,
             'username' => $request->username,
             'email' => $request->email,
+            
+            //hashed password
             'password' => Hash::make($request->password),
         ]);
 

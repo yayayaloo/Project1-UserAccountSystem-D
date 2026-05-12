@@ -9,16 +9,19 @@ use App\Models\User;
 
 class PasswordController extends Controller
 {
+    //show change password form view
     public function showChangeForm(): \Illuminate\View\View
     {
         return view('password.change');
     }
 
+    //handle password update request
     public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
         /** @var User $user */
         $user = Auth::user();
 
+        //validate password input with complexity rules and custom error messages
         $request->validate(
             [
                 'current_password' => 'required|string',
@@ -38,14 +41,17 @@ class PasswordController extends Controller
             ]
         );
 
+        //verify current password matches the stored hashed password using Hash facade
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'Current password is incorrect.']);
         }
 
+        //hash the new password using Hash facade (bcrypt) and update in database
         $user->update([
             'password' => Hash::make($request->password),
         ]);
 
+        //redirect to dashboard with success message
         return redirect()->route('dashboard')->with('success', 'Password changed successfully!');
     }
 }

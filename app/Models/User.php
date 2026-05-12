@@ -26,6 +26,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // fillable — fields allowed for mass assignment via Eloquent 
     protected $fillable = [
         'first_name',
         'last_name',
@@ -34,6 +35,7 @@ class User extends Authenticatable
         'password',
     ];
 
+    // hidden — fields excluded from JSON/array output for security
     protected $hidden = [
         'password',
         'remember_token',
